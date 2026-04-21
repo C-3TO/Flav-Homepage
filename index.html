@@ -79,9 +79,6 @@
     font-family:"Special Elite",monospace;font-size:12px;letter-spacing:.25em;text-transform:uppercase;
     display:flex;align-items:center;gap:10px;
   }
-  .kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--white);
-    animation:pulse 1.8s infinite ease-in-out}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
 
   /* Giant script */
   .hero-stack{
@@ -234,9 +231,9 @@
     position:absolute;bottom:10px;left:0;right:0;text-align:center;
     font-family:"Caveat",cursive;font-size:22px;color:var(--ink);
   }
-  .polaroid.p1{top:0;left:0;transform:rotate(-7deg)}
+  .polaroid.p1{top:0;left:0;transform:rotate(-7deg);z-index:3}
   .polaroid.p2{top:30px;right:0;transform:rotate(6deg);z-index:2}
-  .polaroid.p3{bottom:0;left:20%;transform:rotate(-2deg);z-index:3}
+  .polaroid.p3{bottom:0;left:20%;transform:rotate(-2deg);z-index:1}
   @media(max-width:520px){.polaroid .photo{width:180px;height:180px}}
 
   /* paperclip */
@@ -715,7 +712,6 @@
     font-family:"Special Elite",monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
     display:flex;align-items:center;gap:10px;opacity:.85;margin-bottom:28px;
   }
-  .mm-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--white);animation:pulse 1.8s infinite ease-in-out}
   .mm-links{
     list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;flex:1;
   }
@@ -874,7 +870,7 @@
 <!-- Mobile menu overlay -->
 <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
   <div class="mm-inner">
-    <span class="mm-kicker"><span class="dot"></span> Menu</span>
+    <span class="mm-kicker">Menu</span>
     <ul class="mm-links">
       <li><a href="#about">About</a> <span class="mm-num">01</span></li>
       <li><a href="#services">Services</a> <span class="mm-num">02</span></li>
@@ -891,7 +887,7 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero grain" data-screen-label="01 Hero">
-  <div class="kicker"><span class="dot"></span> Studio créatif · Bassin d'Arcachon</div>
+  <div class="kicker">Studio créatif · Bassin d'Arcachon</div>
 
   <!-- Floating deco -->
   <div class="orb clem c1" style="--r:-8deg"></div>
