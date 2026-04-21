@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="fr">
 <head>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Flav · The Tasty Agency</title>
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="shortcut icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Special+Elite&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&display=swap" rel="stylesheet">
@@ -50,10 +50,19 @@
     display:flex;align-items:center;justify-content:space-between;
     padding:18px 28px;
     color:var(--white);
-    transition:color .3s, background .3s;
-    mix-blend-mode:difference;
+    transition:background .3s, color .3s, box-shadow .3s, padding .3s;
   }
-  nav.top .brand{font-family:"Caveat",cursive;font-size:36px;line-height:1;letter-spacing:-.02em}
+  nav.top.scrolled{
+    background:rgba(255,255,255,.96);
+    color:var(--ink);
+    padding:12px 28px;
+    box-shadow:0 6px 20px rgba(0,0,0,.06);
+    backdrop-filter:blur(10px);
+  }
+  nav.top.scrolled .brand img{filter:invert(1)}
+  nav.top .brand{display:inline-flex;align-items:center;opacity:0;pointer-events:none;transition:opacity .3s}
+  nav.top.scrolled .brand{opacity:1;pointer-events:auto}
+  nav.top .brand img{height:18px;width:auto;display:block}
   nav.top ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;
     font-family:"Special Elite",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
   nav.top li a{position:relative;padding:6px 2px}
@@ -88,15 +97,14 @@
   /* Giant script */
   .hero-stack{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:80px 24px 40px;gap:14px;text-align:center;
+    padding:140px 24px 40px;gap:14px;text-align:center;
   }
   .flav-mark{
-    font-family:"Caveat",cursive;font-weight:700;color:var(--white);
-    font-size:clamp(180px, 34vw, 520px);
-    line-height:.82;letter-spacing:-.02em;
-    text-shadow:0 6px 0 rgba(0,0,0,.04);
-    transform:rotate(-2deg);
+    width:min(240px, 28vw);height:auto;display:block;
     animation:rise 1.1s cubic-bezier(.2,.8,.2,1) both;
+    filter:drop-shadow(0 10px 0 rgba(0,0,0,.04));
+    transform:rotate(-2deg);
+    image-rendering:auto;
   }
   @keyframes rise{from{opacity:0;transform:translateY(40px) rotate(-6deg)}to{opacity:1;transform:translateY(0) rotate(-2deg)}}
   .tagline{
@@ -304,6 +312,172 @@
   .svc.feat .svc-body{flex:1}
   @media(max-width:900px){.svc{grid-column:span 12}.svc.feat{flex-direction:column;align-items:flex-start}}
 
+  /* =========== MENU / PRICING =========== */
+  .menu{
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(255,180,60,.55), transparent 55%),
+      radial-gradient(ellipse at 85% 95%, rgba(200,60,0,.45), transparent 55%),
+      linear-gradient(180deg, #FF8A1A 0%, #EE6A10 60%, #D05600 100%);
+    color:var(--white);
+    padding:140px 6vw 140px;
+    position:relative;overflow:hidden;
+  }
+  .menu::before{
+    /* subtle paper grain that mimics the story screenshots */
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:
+      radial-gradient(rgba(255,255,255,.09) 1px, transparent 1.2px),
+      radial-gradient(rgba(0,0,0,.12) 1px, transparent 1.2px);
+    background-size:3px 3px, 6px 6px;
+    mix-blend-mode:overlay;opacity:.7;
+  }
+  .menu .section-label{color:var(--white);position:relative;z-index:2}
+  .menu-head{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:end;
+    max-width:1200px;margin:0 auto 70px;position:relative;z-index:2;
+  }
+  @media(max-width:900px){.menu-head{grid-template-columns:1fr;gap:30px}}
+  .menu h2{
+    font-family:"Fraunces",serif;font-weight:600;font-style:italic;
+    font-size:clamp(56px,7vw,108px);line-height:.95;letter-spacing:-.02em;margin:10px 0 0;
+  }
+  .menu h2 .amp{font-family:"Caveat",cursive;font-style:normal;opacity:.9}
+  .menu-head p{
+    font-family:"DM Sans",sans-serif;font-size:17px;line-height:1.5;max-width:380px;
+    opacity:.95;margin:0 0 6px;
+  }
+  .menu-note{
+    font-family:"Special Elite",monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;opacity:.75;margin-top:10px;
+  }
+
+  /* Category tabs */
+  .menu-tabs{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+    max-width:1200px;margin:0 auto 40px;position:relative;z-index:2;
+  }
+  .menu-tab{
+    font-family:"Special Elite",monospace;font-size:12px;letter-spacing:.2em;
+    text-transform:uppercase;padding:12px 22px;border-radius:999px;
+    color:var(--white);border:1px solid rgba(255,255,255,.45);
+    background:transparent;cursor:pointer;transition:all .25s;
+  }
+  .menu-tab:hover{background:rgba(255,255,255,.12)}
+  .menu-tab.active{background:var(--white);color:var(--orange);border-color:var(--white)}
+
+  /* Carousel */
+  .menu-carousel{
+    position:relative;max-width:1200px;margin:0 auto;z-index:2;
+    display:flex;align-items:stretch;gap:14px;
+  }
+  .car-nav{
+    flex:0 0 auto;align-self:center;
+    width:52px;height:52px;border-radius:50%;
+    background:rgba(255,255,255,.12);
+    color:var(--white);font-size:22px;
+    border:1px solid rgba(255,255,255,.45);
+    cursor:pointer;transition:all .25s;
+    display:grid;place-items:center;
+  }
+  .car-nav:hover{background:var(--white);color:var(--orange)}
+  .car-nav:disabled{opacity:.25;cursor:not-allowed;pointer-events:none}
+  .car-track{
+    flex:1;display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:6px 2px 20px;
+    scrollbar-width:none;
+    justify-content:center; /* center when fewer cards than fit */
+  }
+  .car-track.has-overflow{justify-content:flex-start}
+  .car-track::-webkit-scrollbar{display:none}
+
+  .car-card{
+    flex:0 0 min(340px, 78vw);
+    scroll-snap-align:start;
+    position:relative;padding:32px 28px 28px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.28);
+    backdrop-filter:blur(2px);
+    border-radius:4px;
+    display:flex;flex-direction:column;
+    transition:transform .3s, background .3s, border-color .3s;
+    display:none; /* hidden until its category is active */
+  }
+  .car-card.visible{display:flex}
+  .car-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.5)}
+  .car-card.featured{
+    background:rgba(255,255,255,.16);
+    border-color:rgba(255,255,255,.65);
+    box-shadow:0 20px 50px rgba(0,0,0,.2);
+  }
+  .car-flag{
+    position:absolute;top:-12px;left:20px;
+    font-family:"Caveat",cursive;font-weight:700;font-size:20px;
+    color:var(--orange);background:var(--white);padding:4px 14px;border-radius:999px;
+    transform:rotate(-3deg);box-shadow:0 6px 16px rgba(0,0,0,.2);
+  }
+  .car-ribbon{
+    font-family:"Special Elite",monospace;font-size:13px;letter-spacing:.18em;
+    text-transform:uppercase;padding-bottom:12px;
+    border-bottom:1px solid rgba(255,255,255,.4);margin-bottom:14px;
+    min-height:24px;
+  }
+  .car-price{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:600;
+    font-size:44px;line-height:1;letter-spacing:-.01em;margin-bottom:6px;
+  }
+  .car-price small{
+    font-family:"Special Elite",monospace;font-style:normal;
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    opacity:.85;margin-left:6px;vertical-align:4px;
+  }
+  .car-sub{
+    font-family:"DM Sans",sans-serif;font-size:14px;line-height:1.45;
+    font-style:italic;opacity:.88;margin:8px 0 14px;
+  }
+  .car-card ul{list-style:none;padding:0;margin:auto 0 0}
+  .car-card ul li{
+    font-family:"DM Sans",sans-serif;font-size:14px;line-height:1.55;
+    padding:3px 0 3px 16px;position:relative;
+  }
+  .car-card ul li::before{
+    content:"•";position:absolute;left:2px;top:2px;opacity:.9;
+  }
+
+  /* Dots */
+  .car-dots{
+    display:flex;gap:8px;justify-content:center;margin:22px auto 0;
+    max-width:1200px;position:relative;z-index:2;
+  }
+  .car-dots .dot-x{
+    width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);
+    cursor:pointer;transition:all .25s;border:0;padding:0;
+  }
+  .car-dots .dot-x.active{background:var(--white);transform:scale(1.4)}
+
+  .menu-footer{
+    margin:70px auto 0;max-width:1200px;display:flex;justify-content:space-between;gap:24px;
+    flex-wrap:wrap;align-items:center;position:relative;z-index:2;
+    font-family:"Special Elite",monospace;font-size:11.5px;letter-spacing:.22em;
+    text-transform:uppercase;opacity:.9;
+  }
+  .menu-footer .menu-cta{
+    display:inline-flex;align-items:center;gap:10px;padding:14px 22px;
+    border:1px solid rgba(255,255,255,.55);border-radius:999px;color:var(--white);
+    transition:background .25s,color .25s,transform .25s;
+  }
+  .menu-footer .menu-cta:hover{background:var(--white);color:var(--orange);transform:translateY(-2px)}
+
+  /* little stamp badge */
+  .menu-stamp{
+    position:absolute;top:60px;right:6vw;width:120px;height:120px;
+    border:1.5px dashed rgba(255,255,255,.55);border-radius:50%;
+    display:grid;place-items:center;transform:rotate(-8deg);
+    font-family:"Special Elite",monospace;font-size:10px;letter-spacing:.22em;
+    text-transform:uppercase;text-align:center;line-height:1.4;opacity:.9;z-index:3;
+  }
+  .menu-stamp em{display:block;font-style:normal;font-size:22px;font-family:"Caveat",cursive;letter-spacing:.02em;margin:2px 0}
+  @media(max-width:720px){.menu-stamp{display:none}}
+
   /* =========== PORTFOLIO =========== */
   .portfolio{
     background:var(--cream);padding:120px 6vw 160px;position:relative;
@@ -478,7 +652,8 @@
   .foot-grid{
     display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;max-width:1400px;margin:0 auto;
   }
-  .foot-brand{font-family:"Caveat",cursive;font-size:56px;line-height:.8;letter-spacing:-.02em}
+  .foot-brand{display:inline-flex;align-items:center}
+  .foot-brand img{height:56px;width:auto;display:block}
   .foot-links{display:flex;gap:28px;font-family:"Special Elite",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
   .foot-links a{opacity:.7;transition:opacity .25s}
   .foot-links a:hover{opacity:1;color:var(--orange)}
@@ -520,11 +695,12 @@
 
 <!-- NAV -->
 <nav class="top">
-  <div class="brand">flav</div>
+  <div class="brand"><img src="flav-wordmark-hd.png" alt="Flav"></div>
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#menu">Tarifs</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">On se parle ?</a>
@@ -545,7 +721,7 @@
   <div class="orb ink-blot" style="bottom:8%;left:14%;width:140px;height:110px;transform:rotate(-12deg);opacity:.22"></div>
 
   <div class="hero-stack">
-    <div class="flav-mark">flav</div>
+    <img class="flav-mark" src="flav-wordmark-hd.png" alt="Flav">
     <div class="tagline">The Tasty Agency</div>
     <p class="hero-sub">
       Content creation, social media &amp; direction artistique,
@@ -795,8 +971,206 @@
   </div>
 </section>
 
+<!-- ============ MENU / TARIFS ============ -->
+<section id="menu" class="menu" data-screen-label="06 Menu">
+  <div class="menu-stamp">
+    Price<em>fresh</em>list
+  </div>
+
+  <div class="menu-head">
+    <div>
+      <div class="section-label"><span class="num">05</span> Nos tarifs</div>
+      <h2>À la <span class="amp">carte</span>, ou en menu.</h2>
+    </div>
+    <div>
+      <p>Des packs pensés comme une carte de restaurant : tu choisis ta formule, on ajuste la recette. Prix affichés hors taxes, déplacements Bassin d'Arcachon inclus.</p>
+      <div class="menu-note">★ Impressions non incluses</div>
+    </div>
+  </div>
+
+  <!-- Category tabs -->
+  <div class="menu-tabs" role="tablist">
+    <button class="menu-tab active" data-cat="community" role="tab">Community Management</button>
+    <button class="menu-tab" data-cat="menus" role="tab">Menus</button>
+    <button class="menu-tab" data-cat="alacarte" role="tab">À la carte</button>
+  </div>
+
+  <!-- Carousel -->
+  <div class="menu-carousel">
+    <button class="car-nav prev" aria-label="Précédent">←</button>
+    <div class="car-track" id="car-track">
+
+      <!-- COMMUNITY MANAGEMENT -->
+      <article class="car-card" data-cat="community">
+        <div class="car-ribbon">Pack Creation Instagram</div>
+        <div class="car-price">390€ <small>one shot</small></div>
+        <p class="car-sub">Le kit de démarrage pour lancer un compte propre et lisible.</p>
+        <ul>
+          <li>Photo de profil optimisée</li>
+          <li>Biographie stratégique</li>
+          <li>Highlights structurés</li>
+          <li>Questions &amp; CTA</li>
+          <li>Moodboard Instagram</li>
+          <li>Stratégie des posts</li>
+          <li>Lien avec Facebook Business Manager</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="community">
+        <div class="car-ribbon">Pack Fruity</div>
+        <div class="car-price">490€ <small>/mois</small></div>
+        <p class="car-sub">Pour démarrer tranquille, sans se disperser.</p>
+        <ul>
+          <li>1 shooting / mois · iPhone</li>
+          <li>Calendrier éditorial</li>
+          <li>6 posts par mois</li>
+          <li>2 stories par semaine</li>
+          <li>Modération des commentaires</li>
+          <li>Point mensuel</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="community">
+        <div class="car-ribbon">Pack Juicy</div>
+        <div class="car-price">680€ <small>/mois</small></div>
+        <p class="car-sub">Un peu plus de volume, un peu plus de vie.</p>
+        <ul>
+          <li>1 shooting / mois · iPhone</li>
+          <li>Calendrier éditorial</li>
+          <li>9 posts par mois</li>
+          <li>3 stories par semaine</li>
+          <li>1 réel par mois</li>
+          <li>Création des highlights</li>
+          <li>Modération des commentaires</li>
+          <li>Point mensuel</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="community">
+        <div class="car-ribbon">Pack Spicy</div>
+        <div class="car-price">850€ <small>/mois</small></div>
+        <p class="car-sub">On passe à la vitesse supérieure, shooting appareil photo inclus.</p>
+        <ul>
+          <li>1 shooting / mois · appareil photo</li>
+          <li>12 posts par mois</li>
+          <li>4 stories par semaine</li>
+          <li>2 réels par mois</li>
+          <li>Modération complète</li>
+          <li>Point mensuel</li>
+        </ul>
+      </article>
+
+      <article class="car-card featured" data-cat="community">
+        <div class="car-flag">★ plus complet</div>
+        <div class="car-ribbon">Pack Tasty</div>
+        <div class="car-price">1050€ <small>/mois</small></div>
+        <p class="car-sub">La formule la plus complète, pour les marques qui veulent tout rafler.</p>
+        <ul>
+          <li>2 shootings / mois · appareil photo</li>
+          <li>Calendrier éditorial</li>
+          <li>16 posts par mois</li>
+          <li>7 stories par semaine</li>
+          <li>4 réels par mois</li>
+          <li>Highlights avancés</li>
+          <li>Modération complète</li>
+          <li>Point mensuel &amp; reporting détaillé</li>
+        </ul>
+      </article>
+
+      <!-- MENUS -->
+      <article class="car-card" data-cat="menus">
+        <div class="car-ribbon">Expertise Marketing</div>
+        <div class="car-price">790€</div>
+        <p class="car-sub">L'audit complet pour (re)poser les bases de ta stratégie.</p>
+        <ul>
+          <li>Analyse du marché &amp; de la concurrence</li>
+          <li>Proposition &amp; fabrication de la valeur</li>
+          <li>Positionnement &amp; valeurs de la marque</li>
+          <li>Définition de la cible</li>
+          <li>Marketing mix &amp; SWOT</li>
+          <li>Préconisations stratégiques</li>
+          <li>Objectifs marketing &amp; communication</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="menus">
+        <div class="car-ribbon">Chartre graphique</div>
+        <div class="car-price">290€</div>
+        <p class="car-sub">Ta marque habillée, cohérente, prête à tourner.</p>
+        <ul>
+          <li>Logo primaire, secondaire &amp; tertiaire</li>
+          <li>Typographies</li>
+          <li>Palettes de couleurs</li>
+          <li>Patterns</li>
+          <li>Slogan</li>
+        </ul>
+      </article>
+
+      <!-- À LA CARTE -->
+      <article class="car-card" data-cat="alacarte">
+        <div class="car-ribbon">Carte de visite &amp; fidélité</div>
+        <div class="car-price">90€</div>
+        <ul>
+          <li>Design recto &amp; verso</li>
+          <li>Respect de la chartre graphique</li>
+          <li>Fichier prêt à l'impression</li>
+          <li>Déclinaison numérique</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="alacarte">
+        <div class="car-ribbon">Stickers de marque</div>
+        <div class="car-price">50€</div>
+        <ul>
+          <li>1 design de sticker format standard</li>
+          <li>Fichier prêt à l'impression</li>
+          <li>Adaptation des contraintes impression</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="alacarte">
+        <div class="car-ribbon">Flyers / Affiche</div>
+        <div class="car-price">120€</div>
+        <ul>
+          <li>Design recto / verso au format choisi</li>
+          <li>Respect de la chartre graphique</li>
+          <li>Fichier prêt à l'impression</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="alacarte">
+        <div class="car-ribbon">Étiquettes</div>
+        <div class="car-price">180€ <small>ou sur devis</small></div>
+        <ul>
+          <li>Design de l'étiquette produit</li>
+          <li>Respect des contraintes de lisibilité</li>
+          <li>Adaptation à la chartre graphique</li>
+          <li>Fichier prêt à l'impression</li>
+        </ul>
+      </article>
+
+      <article class="car-card" data-cat="alacarte">
+        <div class="car-ribbon">Mockups</div>
+        <div class="car-price">50€</div>
+        <ul>
+          <li>Mise en situation réaliste</li>
+          <li>Valorisation visuelle de la marque</li>
+        </ul>
+      </article>
+    </div>
+    <button class="car-nav next" aria-label="Suivant">→</button>
+  </div>
+
+  <div class="car-dots" id="car-dots"></div>
+
+  <div class="menu-footer">
+    <div>★ Devis sur mesure disponibles ★ Paiement en plusieurs fois ★</div>
+    <a href="#contact" class="menu-cta">Demander un devis <span>→</span></a>
+  </div>
+</section>
+
 <!-- ============ CONTACT ============ -->
-<section id="contact" class="contact grain" data-screen-label="06 Contact">
+<section id="contact" class="contact grain" data-screen-label="07 Contact">
 
   <!-- Rotary phone illustration -->
   <svg class="phone" viewBox="0 0 360 360" fill="none" stroke="var(--orange)" stroke-width="2.5" stroke-linecap="round">
@@ -828,7 +1202,7 @@
 
   <div class="contact-grid">
     <div class="rv">
-      <div class="section-label" style="color:var(--orange)"><span class="num">05</span> On y va ?</div>
+      <div class="section-label" style="color:var(--orange)"><span class="num">06</span> On y va ?</div>
       <h2>It's time to <em>call</em> the tasty agency.</h2>
       <p class="lede">Un projet, une idée floue, une envie de refresh ? On adore les cafés (ou les spritz) pour en discuter. On répond en 48h, promis-juré.</p>
 
@@ -883,9 +1257,9 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer data-screen-label="07 Footer">
+<footer data-screen-label="08 Footer">
   <div class="foot-grid">
-    <div class="foot-brand">flav</div>
+    <div class="foot-brand"><img src="flav-wordmark-hd.png" alt="Flav"></div>
     <div class="foot-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
@@ -894,7 +1268,10 @@
       <a href="https://instagram.com/flav_agency">Instagram</a>
     </div>
     <div class="foot-meta">
-      © 2026 Flav Agency<span class="clem-mini"></span>Made avec du jus frais
+      © 2026 Flav Agency<span class="clem-mini"></span>Made avec du jus frais<br>
+      <span style="opacity:.7;font-size:11px;letter-spacing:.15em;display:inline-block;margin-top:6px">
+        Site conçu &amp; développé par <a href="https://instagram.com/theo_indesign" style="text-decoration:underline;text-underline-offset:3px;opacity:.9">Théo_indesign</a>
+      </span>
     </div>
   </div>
 </footer>
@@ -1044,6 +1421,208 @@
     }, 100);
     return false;
   }
+
+  /* =========== MENU CAROUSEL =========== */
+  (function(){
+    const tabs = document.querySelectorAll('.menu-tab');
+    const cards = document.querySelectorAll('.car-card');
+    const track = document.getElementById('car-track');
+    const dotsBox = document.getElementById('car-dots');
+    const prev = document.querySelector('.car-nav.prev');
+    const next = document.querySelector('.car-nav.next');
+    if(!track || !prev || !next || !dotsBox) return;
+
+    // Ensure track is positioned so offsetLeft of children is relative to it
+    track.style.position = 'relative';
+
+    let currentCat = 'community';
+    let currentIdx = 0;
+    let scrollingProgrammatically = false;
+
+    function visibleCards(){
+      return Array.from(cards).filter(c => c.dataset.cat === currentCat);
+    }
+
+    function cardOffsetInTrack(card){
+      // Robust: compute pixel offset of card left edge from track left edge
+      return card.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
+    }
+
+    function hasOverflow(){
+      return track.scrollWidth > track.clientWidth + 4;
+    }
+
+    function renderDots(){
+      const v = visibleCards();
+      dotsBox.innerHTML = '';
+      const overflow = hasOverflow();
+      track.classList.toggle('has-overflow', overflow);
+      dotsBox.style.display = overflow ? 'flex' : 'none';
+      prev.style.display = overflow ? 'grid' : 'none';
+      next.style.display = overflow ? 'grid' : 'none';
+      if(!overflow) return;
+      v.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dot-x' + (i === currentIdx ? ' active' : '');
+        b.setAttribute('aria-label', 'Aller au pack ' + (i + 1));
+        b.dataset.idx = i;
+        dotsBox.appendChild(b);
+      });
+    }
+
+    function atStart(){ return track.scrollLeft <= 4; }
+    function atEnd(){ return track.scrollLeft >= track.scrollWidth - track.clientWidth - 4; }
+
+    function animateScrollLeft(el, to, duration){
+      const from = el.scrollLeft;
+      const dist = to - from;
+      if(Math.abs(dist) < 1){ el.scrollLeft = to; return; }
+      const start = performance.now();
+      const ease = t => 1 - Math.pow(1 - t, 3); // easeOutCubic
+      (function step(now){
+        const t = Math.min(1, (now - start) / duration);
+        el.scrollLeft = from + dist * ease(t);
+        if(t < 1) requestAnimationFrame(step);
+      })(start);
+    }
+
+    function go(i){
+      const v = visibleCards();
+      if(v.length === 0) return;
+      i = Math.max(0, Math.min(v.length - 1, i));
+      currentIdx = i;
+      const card = v[i];
+      const targetLeft = cardOffsetInTrack(card);
+      scrollingProgrammatically = true;
+      animateScrollLeft(track, targetLeft, 400);
+      setTimeout(() => { scrollingProgrammatically = false; updateNavState(); }, 500);
+      updateDotsActive();
+    }
+
+    function updateDotsActive(){
+      dotsBox.querySelectorAll('.dot-x').forEach((d, i) => {
+        d.classList.toggle('active', i === currentIdx);
+      });
+    }
+
+    function updateNavState(){
+      const v = visibleCards();
+      if(v.length <= 1 || !hasOverflow()){
+        prev.disabled = true;
+        next.disabled = true;
+        return;
+      }
+      prev.disabled = atStart();
+      next.disabled = atEnd();
+    }
+
+    function setCategory(cat){
+      currentCat = cat;
+      cards.forEach(c => c.classList.toggle('visible', c.dataset.cat === cat));
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+      currentIdx = 0;
+      // reset scroll without animation
+      track.scrollLeft = 0;
+      // let layout settle before measuring overflow
+      requestAnimationFrame(() => {
+        renderDots();
+        updateNavState();
+      });
+    }
+
+    function currentIndexFromScroll(){
+      const v = visibleCards();
+      if(!v.length) return 0;
+      const sl = track.scrollLeft;
+      let closest = 0, bestD = Infinity;
+      v.forEach((c, i) => {
+        const d = Math.abs(cardOffsetInTrack(c) - sl);
+        if(d < bestD){ bestD = d; closest = i; }
+      });
+      return closest;
+    }
+
+    // Nav buttons — double-check state before firing, use live scroll position
+    prev.addEventListener('click', () => {
+      if(prev.disabled) return;
+      currentIdx = currentIndexFromScroll();
+      go(currentIdx - 1);
+    });
+    next.addEventListener('click', () => {
+      if(next.disabled) return;
+      currentIdx = currentIndexFromScroll();
+      go(currentIdx + 1);
+    });
+
+    // Dot clicks — use delegation with closest() to handle nested targets
+    dotsBox.addEventListener('click', e => {
+      const dot = e.target.closest('.dot-x');
+      if(!dot) return;
+      const idx = Number(dot.dataset.idx);
+      if(!isNaN(idx)) go(idx);
+    });
+
+    // Tab clicks
+    tabs.forEach(t => {
+      t.addEventListener('click', () => setCategory(t.dataset.cat));
+    });
+
+    // Sync currentIdx when user scrolls manually (drag/swipe/wheel)
+    let scrollT;
+    track.addEventListener('scroll', () => {
+      if(scrollingProgrammatically) return;
+      clearTimeout(scrollT);
+      scrollT = setTimeout(() => {
+        const v = visibleCards();
+        if(!v.length) return;
+        const scrollLeft = track.scrollLeft;
+        let closest = 0, bestD = Infinity;
+        v.forEach((c, i) => {
+          const d = Math.abs(cardOffsetInTrack(c) - scrollLeft);
+          if(d < bestD){ bestD = d; closest = i; }
+        });
+        currentIdx = closest;
+        updateDotsActive();
+        updateNavState();
+      }, 120);
+    });
+
+    // Keyboard support when focused on carousel
+    track.tabIndex = 0;
+    track.addEventListener('keydown', e => {
+      if(e.key === 'ArrowRight'){ e.preventDefault(); go(currentIdx + 1); }
+      else if(e.key === 'ArrowLeft'){ e.preventDefault(); go(currentIdx - 1); }
+    });
+
+    // Re-evaluate on resize
+    let resizeT;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeT);
+      resizeT = setTimeout(() => {
+        renderDots();
+        updateNavState();
+      }, 150);
+    });
+
+    // Init
+    setCategory('community');
+  })();
+
+  /* =========== NAV SCROLL BG =========== */
+  (function(){
+    const nav = document.querySelector('nav.top');
+    if(!nav) return;
+    let tick = false;
+    function update(){
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      tick = false;
+    }
+    window.addEventListener('scroll', ()=>{
+      if(!tick){ requestAnimationFrame(update); tick = true; }
+    }, {passive:true});
+    update();
+  })();
 </script>
 
 </body>
